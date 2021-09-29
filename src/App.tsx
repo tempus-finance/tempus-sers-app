@@ -1,11 +1,14 @@
 import React from 'react';
-import logo from './logo.svg';
+import { Container, Grid, Fab } from '@mui/material';
+// import logo from './logo.svg';
 import './App.css';
+import Main from './components/Main/Main';
+import RecentlyMintedSers from './components/RecentlyMintedSers/RecentlyMintedSers';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
+      {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
@@ -18,7 +21,14 @@ function App() {
         >
           Learn React
         </a>
-      </header>
+      </header> */}
+      {/* <Card className="hero" sx={{ minWidth: 275 }}>
+        <CardHeader className="App-header" title="Mint Your Tempus Sers Here" />
+      </Card> */}
+
+        <Main />
+        <RecentlyMintedSers />
+      
     </div>
   );
 }
