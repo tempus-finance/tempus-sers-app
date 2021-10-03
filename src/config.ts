@@ -1,0 +1,1 @@
+export const whitelistUri = "https://gateway.pinata.cloud/ipfs/QmNgUbD4ao8aNWoNehUdzxMbdtXDymQByHiYPKsKpxz5mh";
