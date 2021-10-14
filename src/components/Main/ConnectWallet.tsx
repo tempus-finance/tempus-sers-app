@@ -6,6 +6,8 @@ import { Container, Fab } from '@mui/material';
 import TEMPUS_SERS_ABI from '../../abi/TempusSersAbi.json';
 import * as config from '../../config';
 
+import './ConnectWallet.css';
+
 // TODO: IMPORTANT replace with state whitelist;
 const mockWhitelist: { [address: string]: any } = {
   ['0xAFE0B5E1bF4b9230A53e4A4715074ABf5B45F5de'.toLowerCase()]: [
@@ -108,32 +110,32 @@ const ConnectWallet = () => {
     }
   }, [connectedAddress, whitelist, setTickets]);
 
-  let shortConnectedAddress;
-  if (connectedAddress) {
-    shortConnectedAddress = shortenAccount(connectedAddress);
-  }
+  // let shortConnectedAddress;
+  // if (connectedAddress) {
+  //   shortConnectedAddress = shortenAccount(connectedAddress);
+  // }
 
   return connectedAddress ? (
-    <Container>
-      <div className="connectedWalletBox">
-        <h4>Wallet</h4>
-        <h4 className="connectedAddress">{shortConnectedAddress}</h4>
-        <h4>
-          You have {tickets} {tickets === 1 ? 'ticket' : 'tickets'}
-        </h4>
-        <Fab
-          onClick={onClaimSer}
-          variant="extended"
-          size="large"
-          color="primary"
-          aria-label="add"
-        >
-          <span className="connectWallet">Claim Ser</span>
-        </Fab>
-      </div>
-    </Container>
+    <div className="connectedWalletBox">
+      <h4>Wallet</h4>
+      <h4 className="connectedAddress" style={{ textAlign: 'center' }}>
+        {connectedAddress}
+      </h4>
+      <h4>
+        You have {tickets} {tickets === 1 ? 'ticket' : 'tickets'}
+      </h4>
+      <Fab
+        onClick={onClaimSer}
+        variant="extended"
+        size="large"
+        color="primary"
+        aria-label="add"
+      >
+        <span className="connectWallet">Claim Ser</span>
+      </Fab>
+    </div>
   ) : (
-    <div>
+    <div className="connectWalletButton">
       <Fab
         onClick={onWalletConnect}
         variant="extended"
@@ -149,9 +151,9 @@ const ConnectWallet = () => {
 
 export default ConnectWallet;
 
-function shortenAccount(account: string) {
-  return `${account.substring(0, 6)}...${account.substring(
-    account.length - 5,
-    account.length
-  )}`;
-}
+// function shortenAccount(account: string) {
+//   return `${account.substring(0, 6)}...${account.substring(
+//     account.length - 5,
+//     account.length
+//   )}`;
+// }

@@ -33,7 +33,7 @@ const Header = () => {
           </svg>
         </div>
       </Grid>
-      <Grid item xs={3}>
+      {/* <Grid item xs={3}>
         <div className="header-cta">
           <Fab
             onClick={onCtaClick}
@@ -45,7 +45,7 @@ const Header = () => {
             Call to Action Text
           </Fab>
         </div>
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 };

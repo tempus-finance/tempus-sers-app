@@ -11,7 +11,7 @@ import {
 import './RecentlyMintedSers.css';
 
 const sers = [
-  { id: 1, name: 'Ser Cumberbatch Lolzalot' },
+  { id: 1, name: '0xAbcdsdsaafsadasdasdas' },
   { id: 2, name: 'Ser Cumberbatch Lolzalot' },
   { id: 3, name: 'Ser Cumberbatch Lolzalot' },
   { id: 4, name: 'Ser Cumberbatch Lolzalot' },
@@ -25,18 +25,27 @@ const sers = [
 
 const serCard = (serData: { id: number; name: string }) => (
   <Grid item xs={3}>
-    <Card key={serData.id}>
-      <CardMedia
-        component="img"
-        image={`/TempSerz/${serData.id}.png`}
-        alt={serData.name}
-      />
-      <CardContent>
-        <Typography variant="subtitle1" component="div">
-          {serData.name}
-        </Typography>
-      </CardContent>
-    </Card>
+    <a
+      href="https://kovan.etherscan.io/token/0xf0d0eb522cfa50b716b3b1604c4f0fa6f04376ad"
+      target="_blank"
+      rel="noreferrer"
+    >
+      <Card key={serData.id}>
+        <CardMedia
+          component="img"
+          image={`/TempSerz/${serData.id}.png`}
+          alt={serData.name}
+        />
+        <CardContent>
+          <Typography variant="subtitle1" component="div">
+            ID: {serData.id}
+          </Typography>
+          <Typography variant="subtitle2" component="div">
+            Owner: {serData.name}
+          </Typography>
+        </CardContent>
+      </Card>
+    </a>
   </Grid>
 );
 

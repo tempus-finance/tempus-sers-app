@@ -5,7 +5,7 @@
   padding: 0 !important;
 }
 .main .hero > p {
-  font-size: 4em;
+  font-size: 90px;
 }
 
 .connectWallet {
@@ -30,7 +30,8 @@
 }
 
 svg.arrow {
-  left: -350px;
-  height: 200px;
+  top: 50px;
+  left: -400px;
+  width: 350px;
   position: absolute;
 }

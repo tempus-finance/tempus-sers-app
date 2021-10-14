@@ -6,7 +6,7 @@ type TempusLogoProps = {
 
 const TempusLogo: FC<TempusLogoProps> = ({ fillColor }): JSX.Element => {
   return (
-    <svg width={150} viewBox="0 0 180 50">
+    <svg width={230} viewBox="0 0 180 50">
       <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
         <g
           id="tf__tempus-logo"
