@@ -1,0 +1,14 @@
+.header-cta {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+}
+
+.header-cta > button {
+  background-color: darkgrey;
+  color: black;
+}
+
+.header-cta > button:hover {
+  background-color: gray;
+}

@@ -1,40 +1,36 @@
 .main {
-    text-align: left;
-    font-weight: 700;
-    max-width: 72vw !important;
-    padding: 0 !important;
-  }
-  .main .hero > p {
-    font-size: 4em;
-  }
-  
-  .connectWallet  {
-    color: white;
-    font-weight: 700;
-  }
+  text-align: left;
+  font-weight: 700;
+  max-width: 72vw !important;
+  padding: 0 !important;
+}
+.main .hero > p {
+  font-size: 4em;
+}
 
-  .connectWalletBox {
-      position: relative;
-  }
+.connectWallet {
+  color: white;
+  font-weight: 700;
+}
 
-  .connectedWalletBox {
-    /* position: relative; */
-    background-color: #e2e2e2;
-    border-radius: 15px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 1px;
-    padding-bottom: 1px;
-  }
+.connectWalletBox {
+  position: relative;
+}
 
-  .connectedWalletBox .connectedAddress {
-    background-color: #C4C4C4;
-    border-radius: 5px;
-    padding: 5px;
-  }
-    
-  svg.arrow {
-      left: -350px;
-      height: 200px;
-      position: absolute;
-  }
+.connectedWalletBox {
+  background-color: #e2e2e2;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+.connectedWalletBox .connectedAddress {
+  background-color: #c4c4c4;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+svg.arrow {
+  left: -350px;
+  height: 200px;
+  position: absolute;
+}
