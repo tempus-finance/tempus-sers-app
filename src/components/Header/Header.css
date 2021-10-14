@@ -1,3 +1,14 @@
+.header {
+  position: relative;
+  margin-bottom: 70px;
+}
+
+.tempus-logo-sers {
+  position: absolute;
+  top: 50px;
+  left: 122px;
+}
+
 .header-cta {
   display: flex;
   flex-direction: column;
