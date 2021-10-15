@@ -11,12 +11,16 @@
 }
 
 .ser-card {
-  border: 1px solid #f1f1f1;
+  /* border: 1px solid #f1f1f1; */
 }
 
 .ser-card:hover {
   cursor: pointer;
-  border: 1px solid red;
+  /* border: 1px solid red; */
+}
+
+.ser-card:hover .MuiCardContent-root {
+  background-color: teal;
 }
 
 .ser-card-carousel {

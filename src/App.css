@@ -4,7 +4,7 @@ html * {
 
 body {
   background-color: #f1f1f1;
-  background-image: url('./background.jpeg');
+  background-image: url('./background-light.jpeg');
   background-repeat: no-repeat;
   background-position: top center;
 }
