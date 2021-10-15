@@ -27,15 +27,24 @@
   height: 400px;
   padding: 50px 0 5px;
   overflow: hidden;
+  user-select: none;
 }
 
-.ser-card.carousel {
+.ser-card.carousel-item {
   height: 100%;
-  width: 306px;
+  width: 230px;
   margin: 0 10px;
 }
 
-.ser-card.carousel img {
+.ser-card.carousel-item.carousel-wing {
+  width: 275px;
+}
+
+.ser-card.carousel-item.carousel-middle {
+  width: 306px;
+}
+
+.ser-card.carousel-item img {
   height: calc(100% - 94px);
 }
 

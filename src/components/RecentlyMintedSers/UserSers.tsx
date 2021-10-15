@@ -62,14 +62,28 @@ const UserSers: FC = () => {
               />
             </svg>
           </div>
-          {localSers.map((ser: { id: number; address: string }) => (
-            <SerCard
-              key={ser.id}
-              id={ser.id}
-              address={ser.address}
-              additionalClasses={['carousel']}
-            />
-          ))}
+          {localSers.map(
+            (ser: { id: number; address: string }, index: number) => {
+              let additionalClasses = ['carousel-item'];
+              if (index === Math.floor(localSers.length / 2)) {
+                additionalClasses.push('carousel-middle');
+              }
+              if (
+                index === Math.floor(localSers.length / 2) - 1 ||
+                index === Math.floor(localSers.length / 2) + 1
+              ) {
+                additionalClasses.push('carousel-wing');
+              }
+              return (
+                <SerCard
+                  key={ser.id}
+                  id={ser.id}
+                  address={ser.address}
+                  additionalClasses={additionalClasses}
+                />
+              );
+            }
+          )}
           <div
             className="carousel-controls carousel-controls-right"
             onClick={onClickRight}
