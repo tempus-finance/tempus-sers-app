@@ -1,5 +1,6 @@
+.user-sers > h2,
 .recently-minted-sers > h2 {
-  text-align: left;
+  text-align: center;
   padding-top: 30px;
   padding-bottom: 20px;
 }
@@ -55,12 +56,20 @@
   font-size: 40px;
   background-color: rgba(255, 255, 255, 0.3);
   color: rgba(0, 0, 0, 0.3);
-  width: 30px;
+  /* width: 30px; */
   padding: 5px;
   z-index: 999;
 }
 
+.carousel-controls > svg > path {
+  fill: rgba(0, 0, 0, 0.3);
+}
+
 .carousel-controls:hover {
-  color: rgba(0, 0, 0, 0.75);
+  background-color: rgba(255, 255, 255, 0.5);
   cursor: pointer;
+}
+
+.carousel-controls:hover > svg > path {
+  fill: rgba(0, 0, 0, 0.75);
 }
