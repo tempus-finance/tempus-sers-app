@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Container, Grid } from '@mui/material';
+import { Grid } from '@mui/material';
 import SerCard from './SerCard';
 
 import './RecentlyMintedSers.css';
@@ -19,7 +19,7 @@ const sers = [
 
 const RecentlyMintedSers: FC = () => {
   return (
-    <Container maxWidth="lg" className="RecentlyMintedSers">
+    <div className="recently-minted-sers">
       <h2>Recently Born Serz</h2>
       <Grid
         justifyContent="flex-start"
@@ -28,10 +28,12 @@ const RecentlyMintedSers: FC = () => {
         spacing={8}
       >
         {sers.map((ser: { id: number; address: string }) => (
-          <SerCard key={ser.id} id={ser.id} address={ser.address} />
+          <Grid item xs={3} key={ser.id}>
+            <SerCard id={ser.id} address={ser.address} />
+          </Grid>
         ))}
       </Grid>
-    </Container>
+    </div>
   );
 };
 

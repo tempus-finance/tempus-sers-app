@@ -1,20 +1,66 @@
-.RecentlyMintedSers {
-  background-color: white;
-  border-radius: 12px;
-  max-width: 72vw !important;
-}
-
-.RecentlyMintedSers > h2 {
+.recently-minted-sers > h2 {
   text-align: left;
   padding-top: 30px;
   padding-bottom: 20px;
 }
 
+.user-sers {
+  position: relative;
+  overflow: hidden;
+}
+
 .ser-card {
-  border: 1px solid transparent;
+  border: 1px solid #f1f1f1;
 }
 
 .ser-card:hover {
   cursor: pointer;
   border: 1px solid red;
+}
+
+.ser-card-carousel {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  height: 400px;
+  padding: 50px 0 5px;
+  overflow: hidden;
+}
+
+.ser-card.carousel {
+  height: 100%;
+  width: 306px;
+  margin: 0 10px;
+}
+
+.ser-card.carousel img {
+  height: calc(100% - 94px);
+}
+
+.carousel-controls-left {
+  left: 0;
+}
+
+.carousel-controls-right {
+  right: 0;
+}
+
+.carousel-controls {
+  position: absolute;
+  top: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  background-color: rgba(255, 255, 255, 0.3);
+  color: rgba(0, 0, 0, 0.3);
+  width: 30px;
+  padding: 5px;
+  z-index: 999;
+}
+
+.carousel-controls:hover {
+  color: rgba(0, 0, 0, 0.75);
+  cursor: pointer;
 }

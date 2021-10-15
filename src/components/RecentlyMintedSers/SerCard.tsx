@@ -1,5 +1,5 @@
 import { FC, useCallback } from 'react';
-import { Grid, Typography, Card, CardMedia, CardContent } from '@mui/material';
+import { Typography, Card, CardMedia, CardContent } from '@mui/material';
 import shortenAccount from '../../utils/shortenAddress';
 
 import './RecentlyMintedSers.css';
@@ -7,10 +7,11 @@ import './RecentlyMintedSers.css';
 type SerCardInProps = {
   id: number;
   address: string;
+  additionalClasses?: string[];
 };
 
 const SerCard: FC<SerCardInProps> = (props: SerCardInProps) => {
-  const { id, address } = props;
+  const { id, address, additionalClasses = [] } = props;
 
   const handleClick = useCallback(() => {
     const url = `https://kovan.etherscan.io/token/${address}`; // TODO check this address
@@ -19,9 +20,11 @@ const SerCard: FC<SerCardInProps> = (props: SerCardInProps) => {
     window.open(url, target, features)?.focus();
   }, [address]);
 
+  const classNames = ['ser-card', ...additionalClasses].join(' ');
+
   return (
-    <Grid item xs={3}>
-      <Card key={id} onClick={handleClick} className="ser-card">
+    <div className="ser-item">
+      <Card key={id} onClick={handleClick} className={classNames}>
         <CardMedia
           component="img"
           image={`/TempSerz/${id}.png`}
@@ -37,7 +40,7 @@ const SerCard: FC<SerCardInProps> = (props: SerCardInProps) => {
           </Typography>
         </CardContent>
       </Card>
-    </Grid>
+    </div>
   );
 };
 
