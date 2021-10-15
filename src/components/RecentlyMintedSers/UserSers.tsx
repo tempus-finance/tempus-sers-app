@@ -1,42 +1,10 @@
-import React from 'react';
-import {
-  Container,
-  Grid,
-  Card,
-  CardMedia,
-  CardContent,
-  Typography,
-} from '@mui/material';
+import { FC } from 'react';
+import { Container, Grid } from '@mui/material';
+import SerCard from './SerCard';
 
-const sers = [{ id: 1, name: '0xAbcdsdsaafsadasdasdas' }];
+const sers = [{ id: 1, address: '0xAFE0B5E1bF4b9230A53e4A4715074ABf5B45F5de' }];
 
-const serCard = (serData: { id: number; name: string }) => (
-  <Grid item xs={3}>
-    <a
-      href="https://kovan.etherscan.io/token/0xf0d0eb522cfa50b716b3b1604c4f0fa6f04376ad"
-      target="_blank"
-      rel="noreferrer"
-    >
-      <Card key={serData.id}>
-        <CardMedia
-          component="img"
-          image={`/TempSerz/${serData.id}.png`}
-          alt={serData.name}
-        />
-        <CardContent>
-          <Typography variant="subtitle1" component="div">
-            ID: {serData.id}
-          </Typography>
-          <Typography variant="subtitle2" component="div">
-            Owner: {serData.name}
-          </Typography>
-        </CardContent>
-      </Card>
-    </a>
-  </Grid>
-);
-
-const UserSers = () => {
+const UserSers: FC = () => {
   return (
     <Container
       maxWidth="lg"
@@ -50,7 +18,9 @@ const UserSers = () => {
         container
         spacing={8}
       >
-        {sers.map(serCard)}
+        {sers.map((ser: { id: number; address: string }) => (
+          <SerCard key={ser.id} id={ser.id} address={ser.address} />
+        ))}
       </Grid>
     </Container>
   );

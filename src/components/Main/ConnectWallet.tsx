@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import { JsonRpcSigner, Web3Provider } from '@ethersproject/providers';
-import { Container, Fab } from '@mui/material';
+import { Fab } from '@mui/material';
 import TEMPUS_SERS_ABI from '../../abi/TempusSersAbi.json';
 import * as config from '../../config';
 
@@ -110,11 +110,6 @@ const ConnectWallet = () => {
     }
   }, [connectedAddress, whitelist, setTickets]);
 
-  // let shortConnectedAddress;
-  // if (connectedAddress) {
-  //   shortConnectedAddress = shortenAccount(connectedAddress);
-  // }
-
   return connectedAddress ? (
     <div className="connectedWalletBox">
       <h4>Wallet</h4>
@@ -150,10 +145,3 @@ const ConnectWallet = () => {
 };
 
 export default ConnectWallet;
-
-// function shortenAccount(account: string) {
-//   return `${account.substring(0, 6)}...${account.substring(
-//     account.length - 5,
-//     account.length
-//   )}`;
-// }

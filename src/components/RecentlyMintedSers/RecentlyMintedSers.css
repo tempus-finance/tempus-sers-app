@@ -1,12 +1,20 @@
-
 .RecentlyMintedSers {
-    background-color: white;
-    border-radius: 12px;
-    max-width: 72vw !important;
+  background-color: white;
+  border-radius: 12px;
+  max-width: 72vw !important;
 }
 
 .RecentlyMintedSers > h2 {
-    text-align: left;
-    padding-top: 30px;
-    padding-bottom: 20px;
+  text-align: left;
+  padding-top: 30px;
+  padding-bottom: 20px;
+}
+
+.ser-card {
+  border: 1px solid transparent;
+}
+
+.ser-card:hover {
+  cursor: pointer;
+  border: 1px solid red;
 }
