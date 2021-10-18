@@ -6,8 +6,9 @@ import { Fab } from '@mui/material';
 import TEMPUS_SERS_ABI from '../../abi/TempusSersAbi.json';
 import shortenAccount from '../../utils/shortenAddress';
 import * as config from '../../config';
+import Spinner from '../Spinner';
 
-import './ConnectWallet.css';
+import './Main.css';
 
 // TODO: IMPORTANT replace with state whitelist;
 const mockWhitelist: { [address: string]: any } = {
@@ -25,6 +26,34 @@ const mockWhitelist: { [address: string]: any } = {
   ],
 };
 
+const Loader = () => {
+  const onClickReadTempus = useCallback(() => {
+    window.open('???', '_blank');
+  }, []);
+
+  return (
+    <div className="connected-wallet-box loader">
+      <div className="loader-title">
+        We are hard work minting your very own Ser
+      </div>
+      <div className="loader-svg">
+        <Spinner />
+      </div>
+      <div>
+        <Fab
+          onClick={onClickReadTempus}
+          variant="extended"
+          size="large"
+          color="primary"
+          aria-label="add"
+        >
+          <span className="connectWallet">Read About Tempus</span>
+        </Fab>
+      </div>
+    </div>
+  );
+};
+
 const ConnectWallet = () => {
   const [provider, setProvider] = useState<Web3Provider | null>(null);
   const [connectedSigner, setConnectedSigner] = useState<JsonRpcSigner | null>(
@@ -33,6 +62,7 @@ const ConnectWallet = () => {
   const [connectedAddress, setConnectedAddress] = useState<string>('');
   const [whitelist, setWhitelist] = useState<any>({});
   const [tickets, setTickets] = useState<number>(0);
+  const [showLoading, setShowLoading] = useState<boolean>(false);
 
   const onWalletConnect = useCallback(async () => {
     if (provider) {
@@ -51,29 +81,36 @@ const ConnectWallet = () => {
 
   const onClaimSer = useCallback(async () => {
     if (provider && connectedAddress) {
-      const tempusSersContract = new ethers.Contract(
-        config.tempusSersContractAddress,
-        TEMPUS_SERS_ABI,
-        provider.getSigner()
-      );
+      setShowLoading(true);
 
-      console.log('whitelist.get(connectedAddress!.toLowerCase()):');
-      console.log(connectedAddress!.toLowerCase());
-      console.log(whitelist.get(connectedAddress!.toLowerCase()));
+      setTimeout(() => {
+        setShowLoading(false);
+      }, 20 * 1000);
 
-      // TODO: IMPORTANT take latest by checking which were claimed
-      // const nextTicket = mockWhiteList[connectedAddress.toLowerCase()][0];
-      const nextTicket = whitelist[connectedAddress.toLowerCase()][0];
+      // ACTUAL IMPLEMENTATION
+      // const tempusSersContract = new ethers.Contract(
+      //   config.tempusSersContractAddress,
+      //   TEMPUS_SERS_ABI,
+      //   provider.getSigner()
+      // );
 
-      const result = await tempusSersContract.redeemTicket(
-        connectedAddress,
-        nextTicket.batch,
-        nextTicket.ticketId,
-        nextTicket.sig
-      );
-      console.log('result', result);
+      // console.log('whitelist.get(connectedAddress!.toLowerCase()):');
+      // console.log(connectedAddress!.toLowerCase());
+      // console.log(whitelist.get(connectedAddress!.toLowerCase()));
+
+      // // TODO: IMPORTANT take latest by checking which were claimed
+      // // const nextTicket = mockWhiteList[connectedAddress.toLowerCase()][0];
+      // const nextTicket = whitelist[connectedAddress.toLowerCase()][0];
+
+      // const result = await tempusSersContract.redeemTicket(
+      //   connectedAddress,
+      //   nextTicket.batch,
+      //   nextTicket.ticketId,
+      //   nextTicket.sig
+      // );
+      // console.log('result', result);
     }
-  }, [connectedAddress, provider, whitelist]);
+  }, [provider, connectedAddress, setShowLoading]);
 
   useEffect(() => {
     if (!provider) {
@@ -111,6 +148,10 @@ const ConnectWallet = () => {
     }
   }, [connectedAddress, whitelist, setTickets]);
 
+  if (showLoading) {
+    return <Loader />;
+  }
+
   return connectedAddress ? (
     <div className="connected-wallet-box">
       <div className="connectedAddress">{shortenAccount(connectedAddress)}</div>
@@ -126,7 +167,7 @@ const ConnectWallet = () => {
       </Fab>
     </div>
   ) : (
-    <div className="connectWalletButton">
+    <div className="connected-wallet-button">
       <Fab
         onClick={onWalletConnect}
         variant="extended"

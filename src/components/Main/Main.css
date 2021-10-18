@@ -40,6 +40,22 @@
   margin-right: 11px;
 }
 
+.connect-wallet {
+  display: flex;
+  justify-content: center;
+}
+
+.connected-wallet-button > button {
+  height: 73px;
+  width: 289px;
+}
+
+.connected-wallet-button > button > span {
+  color: white;
+  font-size: 32px;
+  text-transform: capitalize;
+}
+
 .connected-wallet-box {
   position: relative;
   display: flex;
@@ -52,6 +68,7 @@
   padding: 35px;
   font-family: 'Inter', sans-serif;
   font-size: 26px;
+  /* height: 165px; */
 }
 
 .connected-wallet-box > div {
@@ -60,6 +77,21 @@
 
 .connected-wallet-box > button {
   margin-top: 5px;
+  color: white;
+  font-size: 18px;
+  font-weight: 900;
+  padding: 14px 28px;
+}
+
+.connected-wallet-box.loader > .loader-svg {
+  margin: 30px auto;
+}
+
+.connected-wallet-box.loader button {
+  background-color: #288195;
+}
+
+.connected-wallet-box.loader button > span {
   color: white;
   font-size: 18px;
   font-weight: 900;

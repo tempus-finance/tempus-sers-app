@@ -51,7 +51,7 @@ const Main: FC = () => {
           </div>
         </header>
       </Grid>
-      <Grid className="connectWalletBox" item xs={5}>
+      <Grid className="connect-wallet" item xs={5}>
         <ConnectWallet />
       </Grid>
     </Grid>
