@@ -4,6 +4,7 @@ import { ethers } from 'ethers';
 import { JsonRpcSigner, Web3Provider } from '@ethersproject/providers';
 import { Fab } from '@mui/material';
 import TEMPUS_SERS_ABI from '../../abi/TempusSersAbi.json';
+import shortenAccount from '../../utils/shortenAddress';
 import * as config from '../../config';
 
 import './ConnectWallet.css';
@@ -111,14 +112,9 @@ const ConnectWallet = () => {
   }, [connectedAddress, whitelist, setTickets]);
 
   return connectedAddress ? (
-    <div className="connectedWalletBox">
-      <h4>Wallet</h4>
-      <h4 className="connectedAddress" style={{ textAlign: 'center' }}>
-        {connectedAddress}
-      </h4>
-      <h4>
-        You have {tickets} {tickets === 1 ? 'ticket' : 'tickets'}
-      </h4>
+    <div className="connected-wallet-box">
+      <div className="connectedAddress">{shortenAccount(connectedAddress)}</div>
+      <div>tickets remaining: {tickets}</div>
       <Fab
         onClick={onClaimSer}
         variant="extended"
@@ -126,7 +122,7 @@ const ConnectWallet = () => {
         color="primary"
         aria-label="add"
       >
-        <span className="connectWallet">Claim Ser</span>
+        <span className="connectWallet">Claim your Ser</span>
       </Fab>
     </div>
   ) : (

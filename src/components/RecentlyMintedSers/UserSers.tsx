@@ -36,8 +36,8 @@ const UserSers: FC = () => {
   }, [localSers, setLocalSers]);
 
   return (
-    <div className="user-sers" style={{ paddingBottom: '10px' }}>
-      <h2>User Serz</h2>
+    <div className="user-sers">
+      <h2>Your portfolio of Sers</h2>
       <Grid
         justifyContent="flex-start"
         alignItems="center"

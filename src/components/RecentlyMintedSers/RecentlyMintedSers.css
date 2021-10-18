@@ -1,17 +1,29 @@
 .user-sers > h2,
 .recently-minted-sers > h2 {
+  font-family: 'Inter', sans-serif;
+  font-size: 64px;
   text-align: center;
   padding-top: 30px;
   padding-bottom: 20px;
+  color: white;
 }
 
 .user-sers {
   position: relative;
   overflow: hidden;
+  padding-bottom: 10px;
 }
 
-.ser-card {
-  /* border: 1px solid #f1f1f1; */
+.ser-item {
+  border-radius: 50px;
+}
+
+.ser-item > .ser-card {
+  border-radius: 40px;
+}
+
+.ser-item-description {
+  text-align: center;
 }
 
 .ser-card:hover {
@@ -29,7 +41,7 @@
   justify-content: center;
   align-items: center;
   height: 400px;
-  padding: 50px 0 5px;
+  padding: 50px 0 15px;
   overflow: hidden;
   user-select: none;
 }

@@ -31,9 +31,12 @@ const SerCard: FC<SerCardInProps> = (props: SerCardInProps) => {
           alt={address}
           title={address}
         />
-        <CardContent>
+        <CardContent className="ser-item-description">
           <Typography variant="subtitle1" component="div">
-            ID: {id}
+            #{id}
+          </Typography>
+          <Typography variant="subtitle1" component="div">
+            Minted to
           </Typography>
           <Typography variant="subtitle2" component="div">
             {shortenAccount(address)}

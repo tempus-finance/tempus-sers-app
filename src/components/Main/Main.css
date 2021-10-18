@@ -4,34 +4,64 @@
   max-width: 72vw !important;
   padding: 0 !important;
 }
+
+.main .hero {
+  max-width: 640px;
+}
+
 .main .hero > p {
+  margin: 0 auto 10px;
+  font-family: 'Inter', sans-serif;
+  font-size: 24px;
+}
+
+.main .hero > p.title {
   font-size: 90px;
+  line-height: 109px;
 }
 
-.connectWallet {
-  color: white;
-  font-weight: 700;
+.cta-container {
+  display: flex;
+  margin-top: 30px;
 }
 
-.connectWalletBox {
+.cta-container > button {
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  color: black;
+  font-size: 22px;
+  font-weight: 600;
+  margin-right: 33px;
+  padding: 10px 40px;
+}
+
+.cta-container > button > svg {
+  margin-right: 11px;
+}
+
+.connected-wallet-box {
   position: relative;
-}
-
-.connectedWalletBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   background-color: #e2e2e2;
-  border-radius: 15px;
-  padding: 10px;
+  border-radius: 30px;
+  padding: 35px;
+  font-family: 'Inter', sans-serif;
+  font-size: 26px;
 }
 
-.connectedWalletBox .connectedAddress {
-  background-color: #c4c4c4;
-  border-radius: 5px;
-  padding: 5px;
+.connected-wallet-box > div {
+  margin-bottom: 25px;
 }
 
-svg.arrow {
-  top: 50px;
-  left: -400px;
-  width: 350px;
-  position: absolute;
+.connected-wallet-box > button {
+  margin-top: 5px;
+  color: white;
+  font-size: 18px;
+  font-weight: 900;
+  padding: 14px 28px;
 }
