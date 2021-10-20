@@ -6,15 +6,16 @@ import './RecentlyMintedSers.css';
 
 type SerCardInProps = {
   id: number;
-  address: string;
+  imageUri: string;
+  address?: string;
   additionalClasses?: string[];
 };
 
 const SerCard: FC<SerCardInProps> = (props: SerCardInProps) => {
-  const { id, address, additionalClasses = [] } = props;
+  const { id, address, imageUri, additionalClasses = [] } = props;
 
   const handleClick = useCallback(() => {
-    const url = `https://kovan.etherscan.io/token/${address}`; // TODO check this address
+    const url = `https://kovan.etherscan.io/token/${address}`; // TODO: IMPORTANT check this address
     const target = '_blank';
     const features = 'rel="noreferrer"';
     window.open(url, target, features)?.focus();
@@ -27,7 +28,7 @@ const SerCard: FC<SerCardInProps> = (props: SerCardInProps) => {
       <Card key={id} onClick={handleClick} className={classNames}>
         <CardMedia
           component="img"
-          image={`/TempSerz/${id}.png`}
+          image={imageUri}
           alt={address}
           title={address}
         />
@@ -35,12 +36,13 @@ const SerCard: FC<SerCardInProps> = (props: SerCardInProps) => {
           <Typography variant="subtitle1" component="div">
             #{id}
           </Typography>
-          <Typography variant="subtitle1" component="div">
+          { address ? <div><Typography variant="subtitle1" component="div">
             Minted to
           </Typography>
           <Typography variant="subtitle2" component="div">
             {shortenAccount(address)}
-          </Typography>
+          </Typography></div> : null }
+          
         </CardContent>
       </Card>
     </div>

@@ -1,5 +1,7 @@
 import { FC, useCallback, useEffect, useState } from 'react';
 import { Grid } from '@mui/material';
+import { ethers } from 'ethers';
+import getSersDataProvider from '../../services/getSersDataProvider';
 import SerCard from './SerCard';
 
 const sers = [
@@ -13,28 +15,41 @@ const sers = [
 ];
 
 const UserSers: FC = () => {
-  const [localSers, setLocalSers] = useState<any[]>([]);
+  const [userOwnedSers, setUserOwnedSers] = useState<any>(null);
   const onClickLeft = useCallback(() => {
-    setLocalSers((prevSers) => {
+    setUserOwnedSers((prevSers: any) => {
       const [first, ...rest] = prevSers;
       return [...rest, first];
     });
-  }, [setLocalSers]);
+  }, [setUserOwnedSers]);
 
   const onClickRight = useCallback(() => {
-    setLocalSers((prevSers) => {
+    setUserOwnedSers((prevSers: any) => {
       const newSers = [...prevSers];
       const lastSer = newSers.pop();
       return [lastSer, ...newSers];
     });
-  }, [setLocalSers]);
+  }, [setUserOwnedSers]);
 
   useEffect(() => {
-    if (localSers.length === 0) {
-      setLocalSers(sers);
+    async function fetchUserOwnedSers() {
+      const provider = new ethers.providers.Web3Provider(
+        (window as any).ethereum,
+        'any'
+      );
+      const connectedAddress = await provider.getSigner().getAddress();
+      const ownedTokenIds = await getSersDataProvider(provider).getUserOwnedTokens(connectedAddress); 
+      setUserOwnedSers(ownedTokenIds);
     }
-  }, [localSers, setLocalSers]);
+    if (userOwnedSers === null) {
+      fetchUserOwnedSers();
+    }
+  }, [userOwnedSers, setUserOwnedSers]);
 
+  if (!userOwnedSers || !userOwnedSers.length) {
+    return null;
+  }
+  
   return (
     <div className="user-sers">
       <h2>Your portfolio of Sers</h2>
@@ -62,15 +77,15 @@ const UserSers: FC = () => {
               />
             </svg>
           </div>
-          {localSers.map(
-            (ser: { id: number; address: string }, index: number) => {
+          {userOwnedSers.map(
+            (ser: { id: number; tokenUri: string }, index: number) => {
               let additionalClasses = ['carousel-item'];
-              if (index === Math.floor(localSers.length / 2)) {
+              if (index === Math.floor(userOwnedSers.length / 2)) {
                 additionalClasses.push('carousel-middle');
               }
               if (
-                index === Math.floor(localSers.length / 2) - 1 ||
-                index === Math.floor(localSers.length / 2) + 1
+                index === Math.floor(userOwnedSers.length / 2) - 1 ||
+                index === Math.floor(userOwnedSers.length / 2) + 1
               ) {
                 additionalClasses.push('carousel-wing');
               }
@@ -78,7 +93,7 @@ const UserSers: FC = () => {
                 <SerCard
                   key={ser.id}
                   id={ser.id}
-                  address={ser.address}
+                  imageUri={ser.tokenUri} 
                   additionalClasses={additionalClasses}
                 />
               );

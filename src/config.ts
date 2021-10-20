@@ -1,2 +1,3 @@
-export const whitelistUri = "https://gateway.pinata.cloud/ipfs/QmNgUbD4ao8aNWoNehUdzxMbdtXDymQByHiYPKsKpxz5mh";
-export const tempusSersContractAddress = "0x5fbdb2315678afecb367f032d93f642f64180aa3";
+export const whitelistUris = ["/whitelist0.json", "/whitelist1.json"];
+export const tempusSersContractAddress = "0xcfa5230d33e5a8c600f7147c772541a1624a6e6b";
+export const sersBaseUri = "https://ipfs.io/ipfs/QmYknWtV15cg2jLGAak4jXb67HPFpLZdNHneoCfhbFxL9i";

@@ -1,0 +1,13 @@
+{
+    "batch": 1,
+    "supply": 100,
+    "baseTokenURI": "https://ipfs.io/ipfs/QmYknWtV15cg2jLGAak4jXb67HPFpLZdNHneoCfhbFxL9i",
+    "whitelist": [
+      "0xAFE0B5E1bF4b9230A53e4A4715074ABf5B45F5de",
+      "0x5d2FCdc3230D06Bd61c5F12c6b65e43d18AE67c6",
+      "0x5d2FCdc3230D06Bd61c5F12c6b65e43d18AE67c6",
+      "0x5d2FCdc3230D06Bd61c5F12c6b65e43d18AE67c6",
+      "0x5d2FCdc3230D06Bd61c5F12c6b65e43d18AE67c6",
+      "0xAFE0B5E1bF4b9230A53e4A4715074ABf5B45F5de"
+    ]
+  }

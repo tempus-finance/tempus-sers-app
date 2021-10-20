@@ -11,7 +11,7 @@ const Main: FC = () => {
   }, []);
 
   const onTempusClick = useCallback(() => {
-    window.open('https://testnet.tempus.finance/', '_blank');
+    window.open('https://tempus.finance/', '_blank');
   }, []);
 
   return (

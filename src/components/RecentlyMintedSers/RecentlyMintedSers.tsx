@@ -1,8 +1,11 @@
-import { FC } from 'react';
+import { FC, useCallback, useEffect, useState } from 'react';
 import { Grid } from '@mui/material';
 import SerCard from './SerCard';
 
 import './RecentlyMintedSers.css';
+import getSersDataProvider from '../../services/getSersDataProvider';
+import { JsonRpcProvider, Web3Provider } from '@ethersproject/providers';
+import { ethers } from 'ethers';
 
 const sers = [
   { id: 1, address: '0xAFE0B5E1bF4b9230A53e4A4715074ABf5B45F5de' },
@@ -18,18 +21,39 @@ const sers = [
 ];
 
 const RecentlyMintedSers: FC = () => {
+  const [recentlyMintedSers, setRecentlyMintedSers] = useState<any[]>([]);
+  
+  useEffect(() => {
+    async function fetchRecentlyMintedSers() {
+      const response = await getSersDataProvider(new ethers.providers.Web3Provider(
+        (window as any).ethereum,
+        'any'
+      )).getRecentlyMintedSers();
+      setRecentlyMintedSers(response);
+    }
+    if (recentlyMintedSers.length === 0) {
+      fetchRecentlyMintedSers();
+    }
+  }, [recentlyMintedSers, setRecentlyMintedSers]);
+
+
   return (
     <div className="recently-minted-sers">
-      <h2>Recently Born Serz</h2>
+      <h2>Recently Born Sers</h2>
       <Grid
         justifyContent="flex-start"
         alignItems="center"
         container
         spacing={8}
       >
-        {sers.map((ser: { id: number; address: string }) => (
+        {/* {sers.map((ser: { id: number; address: string }) => (
           <Grid item xs={3} key={ser.id}>
             <SerCard id={ser.id} address={ser.address} />
+          </Grid>
+        ))} */}
+        {recentlyMintedSers.map((ser: { tokenId: number; tokenUri: string; mintedTo: string }) => (
+          <Grid item xs={3} key={ser.tokenId}>
+            <SerCard id={ser.tokenId} address={ser.mintedTo} imageUri={ser.tokenUri} />
           </Grid>
         ))}
       </Grid>

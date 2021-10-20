@@ -9,22 +9,8 @@ import * as config from '../../config';
 import Spinner from '../Spinner';
 
 import './Main.css';
+import getSersDataProvider from '../../services/getSersDataProvider';
 
-// TODO: IMPORTANT replace with state whitelist;
-const mockWhitelist: { [address: string]: any } = {
-  ['0xAFE0B5E1bF4b9230A53e4A4715074ABf5B45F5de'.toLowerCase()]: [
-    {
-      ticketId: 1,
-      batch: 0,
-      sig: '0x1234567890abcdef',
-    },
-    {
-      ticketId: 2,
-      batch: 1,
-      sig: '0x2234567890abcdef',
-    },
-  ],
-};
 
 const Loader = () => {
   const onClickReadTempus = useCallback(() => {
@@ -34,7 +20,7 @@ const Loader = () => {
   return (
     <div className="connected-wallet-box loader">
       <div className="loader-title">
-        We are hard work minting your very own Ser
+        Ser birth is in progress...
       </div>
       <div className="loader-svg">
         <Spinner />
@@ -60,8 +46,8 @@ const ConnectWallet = () => {
     null
   );
   const [connectedAddress, setConnectedAddress] = useState<string>('');
-  const [whitelist, setWhitelist] = useState<any>({});
-  const [tickets, setTickets] = useState<number>(0);
+  const [whitelists, setWhitelists] = useState<any>([]);
+  const [availableTickets, setAvailableTickets] = useState<any>([]);
   const [showLoading, setShowLoading] = useState<boolean>(false);
 
   const onWalletConnect = useCallback(async () => {
@@ -80,37 +66,14 @@ const ConnectWallet = () => {
   }, [provider]);
 
   const onClaimSer = useCallback(async () => {
-    if (provider && connectedAddress) {
+    if (provider && connectedAddress && availableTickets.length > 0) {
       setShowLoading(true);
 
-      setTimeout(() => {
-        setShowLoading(false);
-      }, 20 * 1000);
-
-      // ACTUAL IMPLEMENTATION
-      // const tempusSersContract = new ethers.Contract(
-      //   config.tempusSersContractAddress,
-      //   TEMPUS_SERS_ABI,
-      //   provider.getSigner()
-      // );
-
-      // console.log('whitelist.get(connectedAddress!.toLowerCase()):');
-      // console.log(connectedAddress!.toLowerCase());
-      // console.log(whitelist.get(connectedAddress!.toLowerCase()));
-
-      // // TODO: IMPORTANT take latest by checking which were claimed
-      // // const nextTicket = mockWhiteList[connectedAddress.toLowerCase()][0];
-      // const nextTicket = whitelist[connectedAddress.toLowerCase()][0];
-
-      // const result = await tempusSersContract.redeemTicket(
-      //   connectedAddress,
-      //   nextTicket.batch,
-      //   nextTicket.ticketId,
-      //   nextTicket.sig
-      // );
-      // console.log('result', result);
+      const [ticket] = availableTickets; /// use ticket at index 0
+      await getSersDataProvider(provider).claimSer(connectedAddress, whitelists.find((w: any) => w.batch === ticket.batch), ticket.ticketId);
+      setShowLoading(false);
     }
-  }, [provider, connectedAddress, setShowLoading]);
+  }, [provider, availableTickets, connectedAddress, setShowLoading]);
 
   useEffect(() => {
     if (!provider) {
@@ -127,26 +90,41 @@ const ConnectWallet = () => {
   }, [provider]);
 
   useEffect(() => {
-    const populateWhiteList = async () => {
-      const whitelistResponse = await axios.get(config.whitelistUri);
-      if (whitelistResponse) {
-        console.log('whitelistResponse.data', whitelistResponse.data);
-        setWhitelist(whitelistResponse.data);
-      }
+    const populateWhiteLists = async () => {
+      const whitelistResponses = await Promise.all(config.whitelistUris.map(uri => axios.get(uri)));
+      setWhitelists(whitelistResponses.map(res => res.data));
     };
 
-    if (!whitelist) {
-      populateWhiteList();
+    if (whitelists.length === 0) {
+      populateWhiteLists();
     }
-  }, [whitelist, setWhitelist]);
+  }, [whitelists, setWhitelists]);
 
   useEffect(() => {
-    if (connectedAddress && whitelist[connectedAddress.toLowerCase()]) {
-      setTickets(whitelist[connectedAddress.toLowerCase()].length);
-    } else {
-      setTickets(0);
+    async function fetchAvailableTickets() {
+      const tickets = whitelists
+        .map((whitelist: any) => whitelist.whitelist.map((address: string, idx: number) => ({ ticketId: idx + 1, address, batch: whitelist.batch, supply: whitelist.supply })))
+        .flat();
+      
+      const userAddress = connectedAddress.toLowerCase();
+      const sersDataProvider = getSersDataProvider(provider as Web3Provider);
+      const availableTickets: any[] = [];
+      for (const ticket of tickets) {
+        
+        if (ticket.address.toLowerCase() === userAddress && !(await sersDataProvider.isTicketClaimed(ticket.batch, ticket.ticketId))) {
+          availableTickets.push(ticket);
+        }
+      }
+
+      console.log("availableTickets");
+      console.log(availableTickets);
+      setAvailableTickets(availableTickets);
     }
-  }, [connectedAddress, whitelist, setTickets]);
+
+    if (connectedAddress && whitelists.length) {
+      fetchAvailableTickets();
+    }
+  }, [connectedAddress, whitelists, setAvailableTickets]);
 
   if (showLoading) {
     return <Loader />;
@@ -155,7 +133,7 @@ const ConnectWallet = () => {
   return connectedAddress ? (
     <div className="connected-wallet-box">
       <div className="connectedAddress">{shortenAccount(connectedAddress)}</div>
-      <div>tickets remaining: {tickets}</div>
+      <div>Available tickets: {availableTickets.length}</div>
       <Fab
         onClick={onClaimSer}
         variant="extended"
