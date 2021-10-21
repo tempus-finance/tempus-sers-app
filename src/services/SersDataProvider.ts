@@ -29,8 +29,12 @@ class SersDataProvider {
       );
       
       const whitelistTree = encodeBatchWhitelist(whitelist.whitelist, whitelist.batch, whitelist.supply, whitelist.baseTokenURI)
-      const proof = whitelistTree.getHexProof(encodeLeaf(connectedAddress, whitelist.batch, whitelist.supply, ticketId));
-      await tempusSersContract.proveTicket(connectedAddress, whitelist.batch, ticketId, proof);
+      // const whitelistTree = encodeBatchWhitelist(whitelist.whitelist, whitelist.batch, whitelist.supply, whitelist.baseTokenURI)
+      const proof = whitelistTree.getHexProof(encodeLeaf(whitelist.batch, connectedAddress, ticketId));
+      console.log("proof")
+      console.log(proof)
+      // const proof = whitelistTree.getHexProof(encodeLeaf(connectedAddress, whitelist.batch, whitelist.supply, ticketId));
+      await tempusSersContract.proveTicket(whitelist.batch, connectedAddress, ticketId, proof);
 
       // TODO what's the type of result?
       return true;
@@ -72,7 +76,13 @@ class SersDataProvider {
         ownedTokens.push({ id: tokenId, tokenUri: `${baseUri}${tokenId.toString()}.png` });
       }
       catch (e: any) {
-        if (e.data && e.data.message && e.data.message.includes("owner index out of bounds")) {
+        console.log("e")
+        console.log(e)
+        console.log(Object.keys(e.error))
+        if (e.error  && e.error.message && e.error.message.includes("owner index out of bounds") 
+          ||
+         (e.data && e.data.message && e.data.message.includes("owner index out of bounds")) 
+         ) {
           return ownedTokens
         }
         throw e;
@@ -92,15 +102,22 @@ class SersDataProvider {
   }
 }
 
-function encodeLeaf(recipient:string, batch:number, supply:number, ticketId: any) {
-  return ethers.utils.keccak256(ethers.utils.defaultAbiCoder.encode([ "address", "uint256", "uint256", "uint256" ], [ recipient, batch, supply, ticketId ]));
+function encodeLeaf(batch:number, recipient:string, ticketId: any) {
+  // return ethers.utils.keccak256(ethers.utils.defaultAbiCoder.encode([ "address", "uint256", "uint256", "uint256" ], [ recipient, batch, supply, ticketId ]));
+  return ethers.utils.keccak256(ethers.utils.defaultAbiCoder.encode([ "uint256", "address", "uint256" ], [ batch, recipient, ticketId ]));
 }
 
 function encodeBatchWhitelist(whitelist: string[], batch: number, supply: number, baseTokenURI: string) {
-  const leaves = whitelist.map((a, idx) => encodeLeaf(a, batch, supply, idx + 1));
+  // const leaves = whitelist.map((a, idx) => encodeLeaf(a, batch, supply, idx + 1));
   
-  const uriHash = ethers.utils.keccak256(ethers.utils.defaultAbiCoder.encode([ "string" ], [ baseTokenURI ]));
-  leaves.push(encodeLeaf(ethers.constants.AddressZero, batch, supply, uriHash));
+  // const uriHash = ethers.utils.keccak256(ethers.utils.defaultAbiCoder.encode([ "string" ], [ baseTokenURI ]));
+  // leaves.push(encodeLeaf(ethers.constants.AddressZero, batch, supply, uriHash));
+
+  // return new MerkleTree(leaves, keccak256, { hashLeaves: false, sortPairs: true });
+  const leaves = whitelist.map((a, idx) => encodeLeaf(batch, a, idx + 1));
+  
+  const uriHash = ethers.utils.keccak256(ethers.utils.defaultAbiCoder.encode([ "uint256", "string" ], [ supply, baseTokenURI ]));
+  leaves.push(encodeLeaf(batch, ethers.constants.AddressZero, uriHash));
 
   return new MerkleTree(leaves, keccak256, { hashLeaves: false, sortPairs: true });
 }
