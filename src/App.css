@@ -1,8 +1,9 @@
 body {
   background-color: #f1f1f1;
-  background-image: url('./background-light.jpeg');
+  background-image: url('./background.jpg');
   background-repeat: no-repeat;
   background-position: top center;
+  background-size: cover;
 }
 
 .App {
