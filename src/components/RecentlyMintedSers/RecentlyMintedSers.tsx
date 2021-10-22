@@ -1,23 +1,12 @@
 import { FC, useEffect, useState } from 'react';
 import { Grid } from '@mui/material';
-import SerCard from './SerCard';
-
-import './RecentlyMintedSers.css';
-import getSersDataProvider from '../../services/getSersDataProvider';
 import { ethers } from 'ethers';
 
-// const sers = [
-//   { id: 1, address: '0xAFE0B5E1bF4b9230A53e4A4715074ABf5B45F5de' },
-//   { id: 2, address: '0xAFE0B5E1bF4b9230A53e4A4715074ABf5B45F5de' },
-//   { id: 3, address: '0xAFE0B5E1bF4b9230A53e4A4715074ABf5B45F5de' },
-//   { id: 4, address: '0xAFE0B5E1bF4b9230A53e4A4715074ABf5B45F5de' },
-//   { id: 5, address: '0xAFE0B5E1bF4b9230A53e4A4715074ABf5B45F5de' },
-//   { id: 6, address: '0xAFE0B5E1bF4b9230A53e4A4715074ABf5B45F5de' },
-//   { id: 7, address: '0xAFE0B5E1bF4b9230A53e4A4715074ABf5B45F5de' },
-//   { id: 8, address: '0xAFE0B5E1bF4b9230A53e4A4715074ABf5B45F5de' },
-//   { id: 9, address: '0xAFE0B5E1bF4b9230A53e4A4715074ABf5B45F5de' },
-//   { id: 10, address: '0xAFE0B5E1bF4b9230A53e4A4715074ABf5B45F5de' },
-// ];
+import SerCard from './SerCard';
+import './RecentlyMintedSers.css';
+import getSersDataProvider from '../../services/getSersDataProvider';
+import * as config from '../../config';
+
 
 const RecentlyMintedSers: FC = () => {
   const [recentlyMintedSers, setRecentlyMintedSers] = useState<any[]>([]);
@@ -50,7 +39,10 @@ const RecentlyMintedSers: FC = () => {
             <SerCard id={ser.id} address={ser.address} />
           </Grid>
         ))} */}
-        {recentlyMintedSers.map(
+        {recentlyMintedSers
+        .map((item,idx) => recentlyMintedSers[recentlyMintedSers.length-1-idx])
+        .slice(0, config.recentlyBornSersElementsNum)
+        .map(
           (ser: { tokenId: number; tokenUri: string; mintedTo: string }) => (
             <Grid item xs={3} key={ser.tokenId}>
               <SerCard
