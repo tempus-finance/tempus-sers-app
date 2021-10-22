@@ -3,7 +3,6 @@ import { useCallback, useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 import { JsonRpcSigner, Web3Provider } from '@ethersproject/providers';
 import { Fab } from '@mui/material';
-import TEMPUS_SERS_ABI from '../../abi/TempusSersAbi.json';
 import shortenAccount from '../../utils/shortenAddress';
 import * as config from '../../config';
 import Spinner from '../Spinner';
@@ -14,7 +13,7 @@ import getSersDataProvider from '../../services/getSersDataProvider';
 
 const Loader = () => {
   const onClickReadTempus = useCallback(() => {
-    window.open('???', '_blank');
+    window.open('https://tempus.finance', '_blank');
   }, []);
 
   return (
@@ -96,7 +95,7 @@ const ConnectWallet = () => {
       await getSersDataProvider(provider).claimSer(connectedAddress, whitelists.find((w: any) => w.batch === ticket.batch), ticket.ticketId);
       setShowLoading(false);
     }
-  }, [provider, availableTickets, connectedAddress, setShowLoading]);
+  }, [provider, connectedAddress, availableTickets, whitelists]);
 
   useEffect(() => {
     if (!provider) {
@@ -147,7 +146,7 @@ const ConnectWallet = () => {
     if (connectedAddress && whitelists.length) {
       fetchAvailableTickets();
     }
-  }, [connectedAddress, whitelists, setAvailableTickets]);
+  }, [connectedAddress, whitelists, setAvailableTickets, provider]);
 
   if (showLoading) {
     return <Loader />;
