@@ -118,31 +118,6 @@ const UserSers: FC = () => {
                   fill="black"
                 />
               </svg>
-              <path
-                d="M14.462 0.114713C14.3005 0.0297793 14.1188 -0.00925627 13.9367 0.00185115C13.7545 0.0129586 13.5789 0.0737838 13.429 0.177713L0.428977 9.17771C0.296536 9.27014 0.188374 9.39319 0.113688 9.53639C0.0390014 9.67959 0 9.83871 0 10.0002C0 10.1617 0.0390014 10.3208 0.113688 10.464C0.188374 10.6072 0.296536 10.7303 0.428977 10.8227L13.429 19.8227C13.579 19.9265 13.7546 19.9873 13.9367 19.9985C14.1188 20.0097 14.3004 19.9708 14.462 19.8862C14.6237 19.8015 14.759 19.6742 14.8535 19.5182C14.9479 19.3621 14.9979 19.1832 14.998 19.0007V1.00071C14.998 0.818176 14.9481 0.639113 14.8536 0.482932C14.7591 0.326751 14.6237 0.199411 14.462 0.114713ZM12.998 17.0917L2.75498 10.0007L12.998 2.90971V17.0917Z"
-                fill="black"
-              />
-            </svg>
-          </div>
-          {userOwnedSers.map(
-            (ser: { id: number; tokenUri: string }, index: number) => {
-              let additionalClasses = ['carousel-item'];
-              if (index === Math.floor(userOwnedSers.length / 2)) {
-                additionalClasses.push('carousel-middle');
-              }
-              if (
-                index === Math.floor(userOwnedSers.length / 2) - 1 ||
-                index === Math.floor(userOwnedSers.length / 2) + 1
-              ) {
-                additionalClasses.push('carousel-wing');
-              }
-              return (
-                <SerCard
-                  key={ser.id}
-                  id={ser.id}
-                  imageUri={ser.tokenUri}
-                  additionalClasses={additionalClasses}
-
             </div>
             {userOwnedSers.map(
               (ser: { id: number; tokenUri: string }, index: number) => {
