@@ -12,48 +12,105 @@
 .main .hero > p {
   margin: 0 auto 10px;
   font-family: 'Inter', sans-serif;
-  font-size: 24px;
+  font-size: 18px;
   line-height: 160%;
 }
 
 .main .hero > p.title {
-  font-size: 90px;
-  line-height: 109px;
+  font-size: 48px;
+  line-height: 60px;
 }
 
-.cta-container {
-  display: flex;
-  margin-top: 30px;
+@media (min-width: 900px) {
+  .main .hero > p {
+    font-size: 22px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .main .hero > p.title {
+    font-size: 48px;
+    line-height: 60px;
+  }
 }
 
-.cta-container > button {
+@media (min-width: 1200px) {
+  .main .hero > p {
+    font-size: 24px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .main .hero > p.title {
+    font-size: 60px;
+    line-height: 73px;
+  }
+}
+
+.cta-buttons {
   display: flex;
   justify-content: center;
+  flex-direction: column;
+}
+
+@media (min-width: 600px) {
+  .cta-buttons {
+    flex-direction: row;
+  }
+}
+
+.cta-buttons > button {
   background-color: white;
   color: black;
   font-size: 22px;
   font-weight: 600;
-  margin-right: 33px;
-  padding: 10px 40px;
+  width: 90%;
+  margin: 10px auto;
 }
 
-.cta-container > button > svg {
+@media (min-width: 600px) {
+  .cta-buttons > button {
+    width: auto;
+    margin: autp;
+  }
+}
+
+.cta-buttons > button > svg {
   margin-right: 11px;
+}
+
+.cta-button-discord > svg {
+  height: 15px;
+}
+
+.cta-button-tempus > svg {
+  height: 24px;
+}
+
+@media (min-width: 900px) {
+  .limited-640 {
+    max-width: 50%;
+  }
 }
 
 .connect-wallet {
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+.connected-wallet-button {
+  width: 100%;
 }
 
 .connected-wallet-button > button {
-  height: 73px;
-  width: 289px;
+  width: 100%;
 }
 
 .connected-wallet-button > button > span {
   color: white;
-  font-size: 32px;
+  font-size: 24px;
+  line-height: 29px;
   text-transform: capitalize;
 }
 
@@ -66,10 +123,17 @@
   text-align: center;
   background-color: #e2e2e2;
   border-radius: 30px;
-  padding: 35px;
+  padding: 20px;
   font-family: 'Inter', sans-serif;
-  font-size: 26px;
-  /* height: 165px; */
+  font-size: 22px;
+  width: 100%;
+}
+
+@media (min-width: 600px) {
+  .connected-wallet-box {
+    width: auto;
+    padding: 28px;
+  }
 }
 
 .connected-wallet-box > div {
@@ -79,9 +143,31 @@
 .connected-wallet-box > button {
   margin-top: 5px;
   color: white;
-  font-size: 18px;
-  font-weight: 900;
-  padding: 14px 28px;
+  font-size: 22px;
+}
+
+@media (min-width: 900px) {
+  .connected-wallet-button > button > span {
+    font-size: 24px;
+  }
+
+  .connected-wallet-box > button {
+    font-size: 18px;
+    font-weight: 900;
+    padding: 14px 28px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .connected-wallet-button > button > span {
+    font-size: 24px;
+  }
+
+  .connected-wallet-box > button {
+    font-size: 18px;
+    font-weight: 900;
+    padding: 14px 28px;
+  }
 }
 
 .connected-wallet-box.loader > .loader-svg {

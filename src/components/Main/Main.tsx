@@ -21,38 +21,45 @@ const Main: FC = () => {
       container
       spacing={0}
     >
-      <Grid item xs={7}>
+      <Grid item xs={12} sm={6} md={6} lg={6}>
         <header className="hero">
           <p className="title">Mint Your Ser Here</p>
-          <p>
-            Find out what Tempus is all about and check out how you can gain
-            your own Ser
-          </p>
-          <div className="cta-container">
-            <Fab
-              onClick={onDiscordClick}
-              variant="extended"
-              size="large"
-              color="primary"
-              aria-label="add"
-            >
-              <DiscordIcon />
-              Discord
-            </Fab>
-            <Fab
-              onClick={onTempusClick}
-              variant="extended"
-              size="large"
-              color="primary"
-              aria-label="add"
-            >
-              <TempusLogo /> tempus
-            </Fab>
-          </div>
         </header>
       </Grid>
-      <Grid className="connect-wallet" item xs={5}>
+      <Grid className="connect-wallet" item xs={12} sm={6} md={6} lg={5}>
         <ConnectWallet />
+      </Grid>
+      <Grid item xs={12}>
+        <p className="limited-640">
+          Find out what Tempus is all about and check out how you can gain your
+          own Ser
+        </p>
+      </Grid>
+      <Grid item xs={12} sm={12} md={6} lg={6}>
+        <div className="cta-buttons">
+          <Fab
+            onClick={onDiscordClick}
+            variant="extended"
+            size="large"
+            color="primary"
+            aria-label="add"
+            className="cta-button-discord"
+          >
+            <DiscordIcon />
+            Discord
+          </Fab>
+
+          <Fab
+            onClick={onTempusClick}
+            variant="extended"
+            size="large"
+            color="primary"
+            aria-label="add"
+            className="cta-button-tempus"
+          >
+            <TempusLogo /> tempus
+          </Fab>
+        </div>
       </Grid>
     </Grid>
   );

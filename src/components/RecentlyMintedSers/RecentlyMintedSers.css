@@ -1,18 +1,34 @@
 .user-sers > h2,
 .recently-minted-sers > h2 {
   font-family: 'Inter', sans-serif;
-  font-size: 64px;
+  font-size: 24px;
+  line-break: 29px;
   text-align: center;
-  padding-top: 30px;
-  padding-bottom: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
   color: #222222;
+}
+
+@media (min-width: 600px) {
+  .user-sers > h2,
+  .recently-minted-sers > h2 {
+    font-size: 48px;
+    padding-top: 30px;
+    padding-bottom: 20px;
+  }
 }
 
 .recently-minted-sers > h3 {
   font-family: 'Inter', sans-serif;
   text-align: center;
-  font-size: 28px;
+  font-size: 18px;
   color: #222222;
+}
+
+@media (min-width: 600px) {
+  .recently-minted-sers > h3 {
+    font-size: 24px;
+  }
 }
 
 .user-sers {
@@ -28,6 +44,7 @@
 
 .ser-item > .ser-card {
   border-radius: 40px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .ser-item-description {
@@ -36,7 +53,6 @@
 
 .ser-card:hover {
   cursor: pointer;
-  /* border: 1px solid red; */
 }
 
 .ser-card:hover .MuiCardContent-root {
@@ -49,7 +65,7 @@
   justify-content: center;
   align-items: center;
   height: 400px;
-  padding: 50px 0 15px;
+  padding: 10px 0 15px;
   overflow: hidden;
   user-select: none;
 }
@@ -89,7 +105,6 @@
   font-size: 40px;
   background-color: rgba(255, 255, 255, 0.3);
   color: rgba(0, 0, 0, 0.3);
-  /* width: 30px; */
   padding: 5px;
   z-index: 999;
 }
