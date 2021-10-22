@@ -102,6 +102,21 @@ class SersDataProvider {
 
     return tempusSersContract.claimedTickets(batchId, ticketId);
   }
+
+  async onSerTransfer(from: string | null, to: string | null, callback: ethers.providers.Listener) {
+    if (!this.provider) {
+      console.warn('Cannot subscribe to ser transfer event without provider!');
+      return;
+    }
+
+    const tempusSersContract = new ethers.Contract(
+      config.tempusSersContractAddress,
+      TEMPUS_SERS_ABI,
+      this.provider
+    );
+
+    return tempusSersContract.on(tempusSersContract.filters.Transfer(from, to), callback);
+  }
 }
 
 function encodeLeaf(batch:number, recipient:string, ticketId: any) {
