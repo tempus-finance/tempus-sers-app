@@ -15,11 +15,11 @@ const SerCard: FC<SerCardInProps> = (props: SerCardInProps) => {
   const { id, address, imageUri, additionalClasses = [] } = props;
 
   const handleClick = useCallback(() => {
-    const url = `https://opensea.io/assets/0x2e5ac807ed31c33db08d53c0b1b90547d5104e66/${id}`; // TODO: IMPORTANT check this address
+    const url = `https://opensea.io/assets/0x2e5ac807ed31c33db08d53c0b1b90547d5104e66/${id}`;
     const target = '_blank';
-    const features = 'rel="noreferrer"';
+    const features = 'noreferrer';
     window.open(url, target, features)?.focus();
-  }, [address]);
+  }, [id]);
 
   const classNames = ['ser-card', ...additionalClasses].join(' ');
 
