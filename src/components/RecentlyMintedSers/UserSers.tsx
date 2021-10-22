@@ -15,6 +15,9 @@ const sers = [
 ];
 
 const UserSers: FC = () => {
+  const [userWalletAddress, setUserWalletAddress] = useState<string>("");
+  const [userWalletProvider, setUserWalletProvider] = useState<any>(null);
+
   const [userOwnedSers, setUserOwnedSers] = useState<any>(null);
   const onClickLeft = useCallback(() => {
     setUserOwnedSers((prevSers: any) => {
@@ -31,25 +34,68 @@ const UserSers: FC = () => {
     });
   }, [setUserOwnedSers]);
 
+  /**
+   * Fetch user wallet data when component mounts
+   */
   useEffect(() => {
-    async function fetchUserOwnedSers() {
+    const fetchUserWalletData = async () => {
       const provider = new ethers.providers.Web3Provider(
         (window as any).ethereum,
         'any'
       );
       const connectedAddress = await provider.getSigner().getAddress();
-      const ownedTokenIds = await getSersDataProvider(provider).getUserOwnedTokens(connectedAddress); 
-      setUserOwnedSers(ownedTokenIds);
+
+      setUserWalletProvider(provider);
+      setUserWalletAddress(connectedAddress);
+    };
+    fetchUserWalletData();
+  }, []);
+
+  const fetchUserOwnedSers = useCallback(async () => {
+    if (!userWalletAddress || !userWalletProvider) {
+      return;
     }
+    setUserOwnedSers(
+      await getSersDataProvider(userWalletProvider).getUserOwnedTokens(
+        userWalletAddress
+      )
+    );
+  }, [userWalletAddress, userWalletProvider]);
+
+  useEffect(() => {
     if (userOwnedSers === null) {
       fetchUserOwnedSers();
     }
-  }, [userOwnedSers, setUserOwnedSers]);
+  }, [
+    userOwnedSers,
+    userWalletAddress,
+    userWalletProvider,
+    fetchUserOwnedSers,
+  ]);
+
+  /**
+   * Re-fetch user owned sers when new ser has been received
+   */
+  const onSerReceived = useCallback(() => {
+    fetchUserOwnedSers();
+  }, [fetchUserOwnedSers]);
+
+  /**
+   * Listen for sers transfer event and update user sers portfolio when transfer occurs
+   */
+  useEffect(() => {
+    if (!userWalletAddress || !userWalletProvider) {
+      return;
+    }
+
+    const sersDataProvider = getSersDataProvider(userWalletProvider);
+    sersDataProvider.onSerTransfer(null, userWalletAddress, onSerReceived);
+  }, [onSerReceived, userWalletAddress, userWalletProvider]);
 
   if (!userOwnedSers || !userOwnedSers.length) {
     return null;
   }
-  
+
   return (
     <div className="user-sers">
       <h2>Your portfolio of Sers</h2>
@@ -93,7 +139,7 @@ const UserSers: FC = () => {
                 <SerCard
                   key={ser.id}
                   id={ser.id}
-                  imageUri={ser.tokenUri} 
+                  imageUri={ser.tokenUri}
                   additionalClasses={additionalClasses}
                 />
               );
