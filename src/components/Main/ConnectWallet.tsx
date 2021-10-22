@@ -14,7 +14,7 @@ import getSersDataProvider from '../../services/getSersDataProvider';
 
 const Loader = () => {
   const onClickReadTempus = useCallback(() => {
-    window.open('???', '_blank');
+    window.open('https://tempus.finance', '_blank');
   }, []);
 
   return (
