@@ -7,7 +7,6 @@ import './RecentlyMintedSers.css';
 import getSersDataProvider from '../../services/getSersDataProvider';
 import * as config from '../../config';
 
-
 const RecentlyMintedSers: FC = () => {
   const [recentlyMintedSers, setRecentlyMintedSers] = useState<any[]>([]);
 
@@ -25,7 +24,7 @@ const RecentlyMintedSers: FC = () => {
 
   return (
     <div className="recently-minted-sers">
-      <h2>Recently Born Sers </h2>
+      <h2>Recently Born Sers</h2>
       <h3>Total number of Sers minted</h3>
       <h3>{recentlyMintedSers.length} out of 3333</h3>
       <Grid
@@ -34,25 +33,23 @@ const RecentlyMintedSers: FC = () => {
         container
         spacing={8}
       >
-        {/* {sers.map((ser: { id: number; address: string }) => (
-          <Grid item xs={3} key={ser.id}>
-            <SerCard id={ser.id} address={ser.address} />
-          </Grid>
-        ))} */}
         {recentlyMintedSers
-        .map((item,idx) => recentlyMintedSers[recentlyMintedSers.length-1-idx])
-        .slice(0, config.recentlyBornSersElementsNum)
-        .map(
-          (ser: { tokenId: number; tokenUri: string; mintedTo: string }) => (
-            <Grid item xs={3} key={ser.tokenId}>
-              <SerCard
-                id={ser.tokenId}
-                address={ser.mintedTo}
-                imageUri={ser.tokenUri}
-              />
-            </Grid>
+          .map(
+            (item, idx) =>
+              recentlyMintedSers[recentlyMintedSers.length - 1 - idx]
           )
-        )}
+          .slice(0, config.recentlyBornSersElementsNum)
+          .map(
+            (ser: { tokenId: number; tokenUri: string; mintedTo: string }) => (
+              <Grid item xs={12} sm={6} md={4} lg={3} key={ser.tokenId}>
+                <SerCard
+                  id={ser.tokenId}
+                  address={ser.mintedTo}
+                  imageUri={ser.tokenUri}
+                />
+              </Grid>
+            )
+          )}
       </Grid>
     </div>
   );
