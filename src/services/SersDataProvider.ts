@@ -56,7 +56,7 @@ class SersDataProvider {
     return serMintEvents.map( e => {
       const { to: mintedTo, tokenId } = (e as any).args;
       const baseUri = config.sersBaseUri.endsWith('/') ? config.sersBaseUri : `${config.sersBaseUri}/`;
-      return { tokenUri: `${baseUri}${tokenId.toString()}.png`, mintedTo, tokenId: parseInt(tokenId.toString()) };
+      return { tokenUri: `${baseUri}${tokenId.toString()}.png?alt=media`, mintedTo, tokenId: parseInt(tokenId.toString()) };
     });
   }
 
@@ -73,7 +73,7 @@ class SersDataProvider {
         const token: any = await tempusSersContract.tokenOfOwnerByIndex(connectedAddress, ownedTokens.length);
         const baseUri = config.sersBaseUri.endsWith('/') ? config.sersBaseUri : `${config.sersBaseUri}/`;
         const tokenId = parseInt(token.toString());
-        ownedTokens.push({ id: tokenId, tokenUri: `${baseUri}${tokenId.toString()}.png` });
+        ownedTokens.push({ id: tokenId, tokenUri: `${baseUri}${tokenId.toString()}.png?alt=media` });
       }
       catch (e: any) {
         console.log("e")
