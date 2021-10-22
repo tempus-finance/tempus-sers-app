@@ -27,14 +27,16 @@ class SersDataProvider {
         TEMPUS_SERS_ABI,
         this.provider.getSigner()
       );
-      
+
       const whitelistTree = encodeBatchWhitelist(whitelist.whitelist, whitelist.batch, whitelist.supply, whitelist.baseTokenURI)
-      // const whitelistTree = encodeBatchWhitelist(whitelist.whitelist, whitelist.batch, whitelist.supply, whitelist.baseTokenURI)
       const proof = whitelistTree.getHexProof(encodeLeaf(whitelist.batch, connectedAddress, ticketId));
-      console.log("proof")
-      console.log(proof)
-      // const proof = whitelistTree.getHexProof(encodeLeaf(connectedAddress, whitelist.batch, whitelist.supply, ticketId));
-      await tempusSersContract.proveTicket(whitelist.batch, connectedAddress, ticketId, proof);
+
+      const gasEstimateIncrease = 1.1 // 10%
+
+      const gasEstimate = await tempusSersContract.estimateGas.proveTicket(whitelist.batch, connectedAddress, ticketId, proof)
+      await tempusSersContract.proveTicket(whitelist.batch, connectedAddress, ticketId, proof, {
+        gasLimit: Math.ceil(gasEstimate.toNumber() * gasEstimateIncrease),
+      });
 
       // TODO what's the type of result?
       return true;
