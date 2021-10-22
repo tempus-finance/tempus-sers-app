@@ -65,6 +65,29 @@ const ConnectWallet = () => {
     }
   }, [provider]);
 
+  useEffect(() => {
+    const checkConnection = async () => {
+      // If there is no provider installed (MetaMask) return false
+      if (!(window as any).ethereum) {
+        return;
+      }
+  
+      try {
+        return await (window as any).ethereum.send('eth_accounts').then((accounts: any) => {
+          // If user has connected accounts, initiate wallet connect automatically
+          if (accounts.result.length > 0) {
+            onWalletConnect();
+          }
+        })
+      } catch {
+        console.warn('Wallet connection status check failed!');
+      }
+    };
+    if (!connectedSigner && !connectedAddress) {
+      checkConnection();
+    }
+  }, [connectedAddress, connectedSigner, onWalletConnect]);
+
   const onClaimSer = useCallback(async () => {
     if (provider && connectedAddress && availableTickets.length > 0) {
       setShowLoading(true);
